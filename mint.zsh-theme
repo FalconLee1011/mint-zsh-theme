@@ -50,4 +50,4 @@ ZSH_THEME_GIT_PROMPT_CLEAN=" %{$fg[green]%}✓%f"
 
 PROMPT='$(generate_prompt)'
 
-RPROMPT='%(?.%{$FG[118]%}ACK%f.%{$FG[196]%}⤬%f ) [%D{%I:%M:%S%p}]'%
+RPROMPT='%(?.%{$FG[118]%}ACK%f.%{$FG[196]%}⤬%f ) [%D{%I:%M:%S%p}]'
