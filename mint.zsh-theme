@@ -1,6 +1,6 @@
 # xtl's hand made zshell theme
 #
-# Author: Falcon 草(tsao) <x@xtl.tw>
+# Author: Falcon aka 草 <x@xtl.tw> www.xtl.tw
 #
 # Read lots of things from
 # > https://blog.carbonfive.com/writing-zsh-themes-a-quickref/
@@ -26,7 +26,7 @@ get_device(){
       echo "⌸";
     elif [[ "${laptop}" =~ "${chassis}" ]]; then
       echo "💻 ";
-    elif [[ chassis == 5 ]]; then
+    elif [[ $chassis == 5 ]]; then
       echo "🍕";
     else
       echo "⌬";
@@ -34,10 +34,13 @@ get_device(){
   fi
 }
 
-generate_prompt(){
-  echo "│"
-  echo "├─ %{$FG[081]%}%n %{$FG[247]%}$(get_device) %{$FG[157]%}%m %{$FG[247]%}⚙ %{$FG[159]%}%~%f $(git_prompt_info)"
-  echo "└─> "
+generate_prompt_path(){
+  user_name=$(whoami)
+  if [[ $user_name == "root" ]]; then
+    echo "%{$FG[009]%}[ ROOT ] %{$FG[247]%}$(get_device) %{$FG[157]%}%m %{$FG[247]%}⚙ %{$FG[159]%}%~%f"
+  else 
+    echo "%{$FG[081]%}${user_name} %{$FG[247]%}$(get_device) %{$FG[157]%}%m %{$FG[247]%}⚙ %{$FG[159]%}%~%f";
+  fi
 }
 
 # PROMPT='%F{10} %c %n@%m
@@ -48,6 +51,8 @@ ZSH_THEME_GIT_PROMPT_SUFFIX="%f"
 ZSH_THEME_GIT_PROMPT_DIRTY=" %{$fg[red]%}⤬%f"
 ZSH_THEME_GIT_PROMPT_CLEAN=" %{$fg[green]%}✓%f"
 
-PROMPT='$(generate_prompt)'
+PROMPT='│
+├─ $(generate_prompt_path) $(git_prompt_info)
+└─> '
 
 RPROMPT='%(?.%{$FG[118]%}ACK%f.%{$FG[196]%}⤬%f ) [%D{%I:%M:%S%p}]'
